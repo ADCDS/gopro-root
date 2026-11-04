@@ -41,8 +41,8 @@ ppid:  /sbin/finit
   - **Wi-Fi AP** — verified. Enable wireless on the camera, join its AP; the
     camera is `10.5.5.9`. You need the camera's Wi-Fi password (shown on the
     camera when you enable wireless).
-  - **USB NCM** — the same server at `172.23.148.51`; expected to behave
-    identically (not separately verified in this repo).
+  - **USB NCM** — verified. The same server at `172.23.148.51`; the camera
+    enumerates as USB ethernet gadget `2672:0059` and never answers ICMP.
 - `curl` on the host.
 
 ## Quick start — Wi-Fi (verified)
@@ -71,33 +71,61 @@ ppid:  /sbin/finit
    # curl exit=0 http=200 bytes=1 body=00
    ```
 
-5. Verify: `/ROOTED.txt` at the card root, and
-   `DCIM/100GOPRO/ROOTED.TXT` in the media list.
+5. Verify: `/ROOTED.txt` at the card root (see [Verify](#verify)).
 
-## Quick start — USB NCM
+## Quick start — USB NCM (verified)
 
 1. Same card payload.
 2. Plug the camera in over USB; it enumerates as a CDC-NCM ethernet gadget
-   (plus MTP). Give the host an address on its subnet:
+   (plus MTP) as USB `2672:0059`.
+3. Give the host an address on the camera's subnet. The kernel names the
+   interface `enx<mac>` and **the gadget MAC is regenerated on every plug**, so
+   select the interface by USB vendor id, not by name:
 
    ```bash
-   ip -br link | grep enx                 # find the new interface
-   sudo ip addr add 172.23.148.52/24 dev enx...
-   curl -s http://172.23.148.51/gp/gpControl/info
+   ./scripts/usb-up.sh
+   # camera interface: enx7e3ca05ac029
+   #   enx7e3ca05ac029  UP  172.23.148.52/24
+   # OK: 172.23.148.51:80 answered 200 (firmware H22.01.02.20.00)
+   ```
+
+   The script drives NetworkManager (`ipv4.never-default`, so no default route
+   is touched) and needs no root. By hand, the equivalent is:
+
+   ```bash
+   nmcli connection add type ethernet ifname <enx...> con-name gopro-usb \
+       ipv4.method manual ipv4.addresses 172.23.148.52/24 \
+       ipv4.never-default yes ipv6.method ignore
+   nmcli connection up gopro-usb
+   ```
+
+   If the camera re-enumerates mid-session the interface name changes; re-point
+   the profile (`nmcli connection modify gopro-usb connection.interface-name
+   <new-enx...>`) and bring it up again. `scripts/usb-up.sh` does this each run.
+
+4. Fire it, with the USB address:
+
+   ```bash
    ./root-sc.sh http://172.23.148.51
    ```
 
    Note: USB and Wi-Fi are mutually exclusive on this camera; BLE turns off
-   while USB is connected.
+   while USB is connected. `ping` fails even on a healthy link — probe over TCP.
 
-## Verify without pulling the card
+## Verify
 
-`/gopro/media/list` on port 8080 (or `/gp/gpMediaList` on port 80) shows the
-`DCIM` copy:
+The card root is authoritative: `/ROOTED.txt`. The default payload does not
+reboot the camera, and the camera builds its media index at boot and refreshes
+it on its own schedule, so the `DCIM` copy may **not** show up in the media
+list until the camera rescans or restarts:
 
 ```bash
-curl -s http://10.5.5.9:8080/gopro/media/list | grep -o ROOTED.TXT
+curl -s http://10.5.5.9:8080/gopro/media/list       | grep -o ROOTED.TXT   # Wi-Fi
+curl -s http://172.23.148.51:8080/gopro/media/list  | grep -o ROOTED.TXT   # USB
 ```
+
+Treat the card as the source of truth. The media list is a convenience when it
+does appear — its absence is not evidence that the payload did not run.
 
 ## What the payload does
 
@@ -115,6 +143,8 @@ absolute paths. A reboot line is included but commented out.
 | `http=200 bytes=1 body=00` | gpNet accepted `SC`. If no marker appeared, the file was missing/unreadable at `/tmp/fuse_d/scheduled_capture.sh`. |
 | `500 Server error: RX timeout.` (after 10 s) | gpNet did not reply. Wrong command or payload length; `gpNet` usually recovers. `S4` is a *different* command that needs an 11–40 byte payload — sending it 1 byte is a good way to provoke this. |
 | `404` / `Error 404` | Wrong path; it is `/gp/gpCamera` on port 80, not 8080. |
+| Marker on the card but not in `/gopro/media/list` | Stale media index — this payload does not reboot. Not a failure. |
+| `lsusb` loses `2672:0059`, the `enx…` interface vanishes | The camera re-enumerated or rebooted (new gadget MAC). Re-run `scripts/usb-up.sh` when it is back. |
 | Camera AP not visible | Wireless is off, or USB is connected (USB disables Wi-Fi/BLE). Enable wireless on the camera. |
 | Camera unreachable after success | The payload may have rebooted it; the AP is off after a reboot until wireless is enabled again. |
 
@@ -134,6 +164,8 @@ unauthenticated legacy HTTP proxy.
 
 - HERO11 Black, firmware `H22.01.02.20.00` (retail): Wi-Fi path, verified.
   Marker written with `uid=0(root)`, `ppid=/sbin/finit`.
+- Same camera, same build, over **USB NCM**: `SC` accepted
+  (`http=200 bytes=1 body=00`) and `ROOTED.txt` written to the card root.
 
 ## Cleanup
 

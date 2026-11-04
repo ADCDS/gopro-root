@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 # Runs as root on the camera when gpNet receives the "SC" command with
 # payload byte 0x02 (see README / docs/how-it-works.md).
 #
