@@ -33,9 +33,12 @@ ppid:  /sbin/finit
 
 ## Requirements
 
-- GoPro HERO11 Black on firmware **H22.01.02.20.00** (tested). Other versions and
-  models are unverified — the command table may differ, and a wrong command can
-  make the camera's `gpNet` daemon unhappy until it restarts.
+- GoPro HERO11 Black on firmware **H22.01.02.20.00** (tested). The same `SC`
+  hook is present in the official firmware of the HERO8 Black through the
+  HERO13 Black / MAX2 generation; the newest MISSION 1 family gates it. See
+  [`docs/firmware-verification.md`](docs/firmware-verification.md). The command
+  table index and the Wi-Fi/USB addresses can differ between bodies, and a
+  wrong command can make `gpNet` unhappy until it restarts.
 - An SD card with `scheduled_capture.sh` at its root.
 - A network path to the camera's HTTP server (port 80):
   - **Wi-Fi AP** — verified. Enable wireless on the camera, join its AP; the
@@ -136,6 +139,47 @@ stops. It does not persist, does not change settings, and does not reboot.
 Edit it if you want more. It runs as root with `/bin/sh` from `/`, so use
 absolute paths. A reboot line is included but commented out.
 
+## Root shell over SSH (dropbear) — verified
+
+The same `SC` trigger turns the proof-of-root into an interactive, key-only
+root shell on port 22. Inbound is DROP, so the installer opens exactly one port
+first — the same `iptables -I INPUT 1 …` pattern gpNet uses for its own TFTP
+port.
+
+```bash
+./scripts/install-card.sh /media/$USER/<CARD> ~/.ssh/id_ed25519.pub
+```
+
+That writes five files to the card root:
+
+| file | purpose |
+|---|---|
+| `scheduled_capture.sh` | bootstrap, run by gpNet on `SC` |
+| `stage.sh` | the installer (fetched fresh from the host first) |
+| `dropbearmulti` | static musl aarch64 Dropbear 2026.94, 396 KB |
+| `authorized_keys` | the operator public key |
+| `dropbear_hostkey` | stable server identity, generated once per card |
+
+Then, with the card in the camera and USB attached:
+
+```bash
+./scripts/arm.sh
+# ...
+# uid=0(root) gid=0(root) groups=0(root)
+# 4.19.124
+```
+
+`arm.sh` starts a temporary HTTP server, sends the trigger, waits for the port
+and checks the login. Run it again after every camera power cycle: **the rootfs
+is mounted read-only** (`/dev/root / ext4 ro`), so there is nothing to persist
+and nothing can auto-start at boot.
+
+The binary is served from this checkout, so `stage.sh` edits take effect on
+the next re-arm without touching the card. How it works — the firewall, the
+`authorized_keys` permission traps (1777 tmpfs, gpNet's umask 0), and how to
+diagnose a failed install without pulling the card — is in
+[`docs/dropbear.md`](docs/dropbear.md).
+
 ## Troubleshooting
 
 | Symptom | Meaning |
@@ -145,14 +189,19 @@ absolute paths. A reboot line is included but commented out.
 | `404` / `Error 404` | Wrong path; it is `/gp/gpCamera` on port 80, not 8080. |
 | Marker on the card but not in `/gopro/media/list` | Stale media index — this payload does not reboot. Not a failure. |
 | `lsusb` loses `2672:0059`, the `enx…` interface vanishes | The camera re-enumerated or rebooted (new gadget MAC). Re-run `scripts/usb-up.sh` when it is back. |
+| SSH: `Permission denied (publickey)` with the right key | A directory above `authorized_keys` is group/world-writable, so dropbear refuses it. See `docs/dropbear.md` §3 — the usual cause is a 0777 dir from gpNet's umask. |
+| Port 22 refused after a trigger | The installer failed before starting dropbear. Read the `/beacon/…` lines in the host HTTP access log, or `/tmp/fuse_d/DROPBEAR_LOG.txt` on the card. |
+| SSH worked, then stopped after a power cycle | Expected — the rootfs is read-only. Re-arm with `./scripts/arm.sh`. |
 | Camera AP not visible | Wireless is off, or USB is connected (USB disables Wi-Fi/BLE). Enable wireless on the camera. |
 | Camera unreachable after success | The payload may have rebooted it; the AP is off after a reboot until wireless is enabled again. |
 
 ## How it works
 
-The full chain, the 66-entry command table decode (`SC` is entry 63), the
-handler's three payload branches and the reverse-engineering notes are in
-[`docs/how-it-works.md`](docs/how-it-works.md).
+The full chain, the HERO11 66-entry command table decode (`SC` is entry 63),
+the handler's three payload branches and the reverse-engineering notes are in
+[`docs/how-it-works.md`](docs/how-it-works.md). The `SC` index and handler
+address differ on other models; see
+[`docs/firmware-verification.md`](docs/firmware-verification.md).
 
 Short version: `SC` is a test hook for the camera's scheduled-capture feature.
 Payload `0x01` ("Allow Scheduled Capture") sets the feature bit that gates the
@@ -166,6 +215,13 @@ unauthenticated legacy HTTP proxy.
   Marker written with `uid=0(root)`, `ppid=/sbin/finit`.
 - Same camera, same build, over **USB NCM**: `SC` accepted
   (`http=200 bytes=1 body=00`) and `ROOTED.txt` written to the card root.
+- Static, from the current official images: HERO8 Black `02.51.00`, HERO9 Black
+  `01.72.00`, HERO10 Black `01.62.00`, HERO11 Black `02.32.00`, HERO11 Black
+  Mini `02.50.00`, HERO12 Black `02.44.00`, HERO13 Black `02.14.00`, MAX
+  `02.06.00` and MAX2 `01.34.00` all contain the same `SC` → `system()` path.
+  MISSION 1 `04.01.00` has the command but a production-build gate; HERO (2024)
+  and LIT HERO use an Ambarella image with no gpNet in the readable rootfs.
+  Details: [`docs/firmware-verification.md`](docs/firmware-verification.md).
 
 ## Cleanup
 
