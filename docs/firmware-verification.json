@@ -1,0 +1,500 @@
+{
+  "schema": 1,
+  "generated": "2026-11-04",
+  "source": "https://api.gopro.com/firmware/v2/catalog",
+  "method": "Static analysis of the official UPDATE.zip; the HERO11 transport/root was previously verified on hardware.",
+  "models": [
+    {
+      "model_id": 50,
+      "model": "HERO8 Black",
+      "version": "02.51.00",
+      "release_date": "20220324",
+      "url": "https://device-firmware.gp-static.com/50/77b086a3564dc3dfeca85a89d33acb49222f6c4a/HD8.01/camera_fw/02.51.00/UPDATE.zip",
+      "sha1": "77b086a3564dc3dfeca85a89d33acb49222f6c4a",
+      "data_bin_sha256": "220b91d289bc458d2580d8805a079687ba6e73eeb18c94b126a9d61f1058c6ba",
+      "data_bin_size": 194069088,
+      "gpnet": {
+        "arch": "arm32",
+        "elf_type": "ET_EXEC",
+        "size": 478244,
+        "sha256": "f42c1a831f9eb5b9e5d7ed97e2d9d4bebc36de9496bbaa096cdee2b22ac29acc",
+        "build_id": "b7b2536f17caf4eba7df6185b94ae36f00e14898",
+        "elf_offset": 131210768
+      },
+      "command_table": {
+        "s_cats_index": 1,
+        "entries": 78,
+        "sc_index": 75,
+        "handler": 248576,
+        "max_len": 1,
+        "min_len": 1
+      },
+      "handler_path": [
+        "0x3cb00",
+        "0x3c9d4"
+      ],
+      "system_arg": "/tmp/fuse_d/scheduled_capture.sh&",
+      "gphttpserver": {
+        "route": true,
+        "handler": true,
+        "mailbox": true
+      },
+      "verdict": "VULNERABLE_STATIC",
+      "note": "Official firmware contains the unguarded SC -> system() path."
+    },
+    {
+      "model_id": 51,
+      "model": "MAX",
+      "version": "02.06.00",
+      "release_date": "20260212",
+      "url": "https://device-firmware.gp-static.com/51/d21b741cd7fab287cd2f3eb37bc5ee544b348fac/H19.03/camera_fw/02.06.00/UPDATE.zip",
+      "sha1": "d21b741cd7fab287cd2f3eb37bc5ee544b348fac",
+      "data_bin_sha256": "7a969dc54ddc4e67ab7b70bbe2e91ad3b076de7db97680bee8e911b3a65388f0",
+      "data_bin_size": 167952096,
+      "gpnet": {
+        "arch": "arm32",
+        "elf_type": "ET_EXEC",
+        "size": 478248,
+        "sha256": "1ec9e3759cea932dd403c0b37c40799c6d2ef9ac1a7a7422232aff7c011946f9",
+        "build_id": "33796e0b24ba4a9c206cf9f9658d22bf34fe1ac3",
+        "elf_offset": 110733968
+      },
+      "command_table": {
+        "s_cats_index": 1,
+        "entries": 78,
+        "sc_index": 75,
+        "handler": 248576,
+        "max_len": 1,
+        "min_len": 1
+      },
+      "handler_path": [
+        "0x3cb00",
+        "0x3c9d4"
+      ],
+      "system_arg": "/tmp/fuse_d/scheduled_capture.sh&",
+      "gphttpserver": {
+        "route": true,
+        "handler": true,
+        "mailbox": true
+      },
+      "verdict": "VULNERABLE_STATIC",
+      "note": "Official firmware contains the unguarded SC -> system() path."
+    },
+    {
+      "model_id": 55,
+      "model": "HERO9 Black",
+      "version": "01.72.00",
+      "release_date": "20220601",
+      "url": "https://device-firmware.gp-static.com/55/1296c5817e23dca433d10dffea650bdbe8f14130/HD9.01/camera_fw/01.72.00/UPDATE.zip",
+      "sha1": "1296c5817e23dca433d10dffea650bdbe8f14130",
+      "data_bin_sha256": "77a2d808a6c6f7b655e6e8b3e73c9cd99e894ec084a4236882273d0e3579f100",
+      "data_bin_size": 202560224,
+      "gpnet": {
+        "arch": "arm32",
+        "elf_type": "ET_EXEC",
+        "size": 506476,
+        "sha256": "b276dcdd3d300f74db0faf8463468fbec198567d5301e6e9117c5735bab3784a",
+        "build_id": "08e4543318ca877bf37ebb34ea927a3def5b3001",
+        "elf_offset": 138813072
+      },
+      "command_table": {
+        "s_cats_index": 1,
+        "entries": 78,
+        "sc_index": 75,
+        "handler": 237572,
+        "max_len": 1,
+        "min_len": 1
+      },
+      "handler_path": [
+        "0x3a004",
+        "0x39ed8"
+      ],
+      "system_arg": "/tmp/fuse_d/scheduled_capture.sh&",
+      "gphttpserver": {
+        "route": true,
+        "handler": true,
+        "mailbox": true
+      },
+      "verdict": "VULNERABLE_STATIC",
+      "note": "Official firmware contains the unguarded SC -> system() path."
+    },
+    {
+      "model_id": 57,
+      "model": "HERO10 Black",
+      "version": "01.62.00",
+      "release_date": "20240523",
+      "url": "https://device-firmware.gp-static.com/57/cb7a0d0cc5420fbe37d3bd024e572f4995ac0e8e/H21.01/camera_fw/01.62.00/UPDATE.zip",
+      "sha1": "cb7a0d0cc5420fbe37d3bd024e572f4995ac0e8e",
+      "data_bin_sha256": "1adad215d3a58a2ce1712370d37fee93f8d3e87c18dc8e9a125b03b27f945b28",
+      "data_bin_size": 204588112,
+      "gpnet": {
+        "arch": "aarch64",
+        "elf_type": "ET_EXEC",
+        "size": 504764,
+        "sha256": "70822121ea90d8039e2ba2f73bc67ff8e7fadc7c86dbd363d9da990ccdaab6bc",
+        "build_id": "fe23f3bc6931f021727f6ec8f09049abb48b3cb1",
+        "elf_offset": 148778512
+      },
+      "command_table": {
+        "s_cats_index": 2,
+        "entries": 66,
+        "sc_index": 63,
+        "handler": 4307264,
+        "max_len": 1,
+        "min_len": 1
+      },
+      "handler_path": [
+        "0x41b940"
+      ],
+      "system_arg": "/tmp/fuse_d/scheduled_capture.sh&",
+      "gphttpserver": {
+        "route": true,
+        "handler": true,
+        "mailbox": true
+      },
+      "verdict": "VULNERABLE_STATIC",
+      "note": "Official firmware contains the unguarded SC -> system() path."
+    },
+    {
+      "model_id": 58,
+      "model": "HERO11 Black",
+      "version": "02.32.00",
+      "release_date": "20250113",
+      "url": "https://device-firmware.gp-static.com/58/f57ec503c833d28c5eccfa13fcbd20d61a8c4d25/H22.01/camera_fw/02.32.00/UPDATE.zip",
+      "sha1": "f57ec503c833d28c5eccfa13fcbd20d61a8c4d25",
+      "data_bin_sha256": "815baf150ba280caa14a767f588f9eb0ce5e25c23b2722ffcfe3ea333352e2fd",
+      "data_bin_size": 220271344,
+      "gpnet": {
+        "arch": "aarch64",
+        "elf_type": "ET_EXEC",
+        "size": 518188,
+        "sha256": "2b064b7110084cabfef84cd627bb9ecd2e1dda9fe0a023f0c88d42bea67776fe",
+        "build_id": "c431be953cf567ac903a294c1fe61f894103c37f",
+        "elf_offset": 161143984
+      },
+      "command_table": {
+        "s_cats_index": 2,
+        "entries": 66,
+        "sc_index": 63,
+        "handler": 4315272,
+        "max_len": 1,
+        "min_len": 1
+      },
+      "handler_path": [
+        "0x41d888"
+      ],
+      "system_arg": "/tmp/fuse_d/scheduled_capture.sh&",
+      "gphttpserver": {
+        "route": true,
+        "handler": true,
+        "mailbox": true
+      },
+      "verdict": "VULNERABLE_STATIC",
+      "note": "Official firmware contains the unguarded SC -> system() path."
+    },
+    {
+      "model_id": 60,
+      "model": "HERO11 Black Mini",
+      "version": "02.50.00",
+      "release_date": "20240502",
+      "url": "https://device-firmware.gp-static.com/60/215049e8fe090616943d4d39ab883319fe37f164/H22.03/camera_fw/02.50.00/UPDATE.zip",
+      "sha1": "215049e8fe090616943d4d39ab883319fe37f164",
+      "data_bin_sha256": "366438e1f062be24baabd58bca8830985faadbc0294d0a61e08cb03d59a7f082",
+      "data_bin_size": 193214832,
+      "gpnet": {
+        "arch": "aarch64",
+        "elf_type": "ET_EXEC",
+        "size": 518188,
+        "sha256": "e68ecec259b705585b40339b4a387f880334d909d055c1f997b7e0e23b5441ba",
+        "build_id": "4951edf915173c00e737eb439e88a90fe32252e1",
+        "elf_offset": 134087472
+      },
+      "command_table": {
+        "s_cats_index": 2,
+        "entries": 66,
+        "sc_index": 63,
+        "handler": 4315272,
+        "max_len": 1,
+        "min_len": 1
+      },
+      "handler_path": [
+        "0x41d888"
+      ],
+      "system_arg": "/tmp/fuse_d/scheduled_capture.sh&",
+      "gphttpserver": {
+        "route": true,
+        "handler": true,
+        "mailbox": true
+      },
+      "verdict": "VULNERABLE_STATIC",
+      "note": "Official firmware contains the unguarded SC -> system() path."
+    },
+    {
+      "model_id": 62,
+      "model": "HERO12 Black",
+      "version": "02.44.00",
+      "release_date": "20261020",
+      "url": "https://device-firmware.gp-static.com/62/090e07e28efdcb91c6f41d3752ffeef3843aebca/H23.01/camera_fw/02.44.00/UPDATE.zip",
+      "sha1": "090e07e28efdcb91c6f41d3752ffeef3843aebca",
+      "data_bin_sha256": "4c3ff3152c88bbac1c15bbf453d72ebc0cdafa6a22eae257cb1d7b3abd62ff98",
+      "data_bin_size": 241667840,
+      "gpnet": {
+        "arch": "aarch64",
+        "elf_type": "ET_DYN",
+        "size": 527104,
+        "sha256": "395e25fc03069135f73a77fff7d0db99e35f8c2c7364f48d3d276ffa7c4e46d7",
+        "build_id": "d8162c642a619bd4e00fe1ab612987f17bc7e5a6",
+        "elf_offset": 170661712
+      },
+      "command_table": {
+        "s_cats_index": 2,
+        "entries": 64,
+        "sc_index": 61,
+        "handler": 180656,
+        "max_len": 1,
+        "min_len": 1
+      },
+      "handler_path": [
+        "0x2c1b0",
+        "0x2c0f0"
+      ],
+      "system_arg": "/tmp/fuse_d/scheduled_capture.sh&",
+      "gphttpserver": {
+        "route": true,
+        "handler": true,
+        "mailbox": true
+      },
+      "verdict": "VULNERABLE_STATIC",
+      "note": "Official firmware contains the unguarded SC -> system() path."
+    },
+    {
+      "model_id": 64,
+      "model": "MAX2",
+      "version": "01.34.00",
+      "release_date": "20261020",
+      "url": "https://device-firmware.gp-static.com/64/173569153ba9db14e8b3628485afe479235ba6ad/H24.02/camera_fw/01.34.00/UPDATE.zip",
+      "sha1": "173569153ba9db14e8b3628485afe479235ba6ad",
+      "data_bin_sha256": "e8cc0d1e2ccd0f0701bea6e9affc025d5f7b847f3491e485c8c448584febfaad",
+      "data_bin_size": 261780656,
+      "gpnet": {
+        "arch": "aarch64",
+        "elf_type": "ET_DYN",
+        "size": 478368,
+        "sha256": "767a3b7be4306c5f75a5fe7da38a25bb696a009c025d50cfbce551266d4ced90",
+        "build_id": "96754dd4a70be4c1b32bd5c236e7e6b3d1cc0d96",
+        "elf_offset": 205355104
+      },
+      "command_table": {
+        "s_cats_index": 2,
+        "entries": 65,
+        "sc_index": 62,
+        "handler": 184352,
+        "max_len": 1,
+        "min_len": 1
+      },
+      "handler_path": [
+        "0x2d020",
+        "0x2cf60"
+      ],
+      "system_arg": "/tmp/fuse_d/scheduled_capture.sh&",
+      "gphttpserver": {
+        "route": true,
+        "handler": true,
+        "mailbox": true
+      },
+      "verdict": "VULNERABLE_STATIC",
+      "note": "Official firmware contains the unguarded SC -> system() path."
+    },
+    {
+      "model_id": 65,
+      "model": "HERO13 Black",
+      "version": "02.14.00",
+      "release_date": "20261020",
+      "url": "https://device-firmware.gp-static.com/65/9dfbefaefddc1fee4cc040a673224b708689cdc0/H24.01/camera_fw/02.14.00/UPDATE.zip",
+      "sha1": "9dfbefaefddc1fee4cc040a673224b708689cdc0",
+      "data_bin_sha256": "cdfe60264b617d2985082c8363d43d9cbfeb3c06af49c88d922e974068598349",
+      "data_bin_size": 275329104,
+      "gpnet": {
+        "arch": "aarch64",
+        "elf_type": "ET_DYN",
+        "size": 478328,
+        "sha256": "a24e9d48b1d37a6b7dff4aed47899214e3d7286472939c2153930ab84a6e7b6f",
+        "build_id": "4a83feedb2dc6a4e6553bc33c08039237ad09e82",
+        "elf_offset": 209006592
+      },
+      "command_table": {
+        "s_cats_index": 2,
+        "entries": 65,
+        "sc_index": 62,
+        "handler": 184016,
+        "max_len": 1,
+        "min_len": 1
+      },
+      "handler_path": [
+        "0x2ced0",
+        "0x2ce10"
+      ],
+      "system_arg": "/tmp/fuse_d/scheduled_capture.sh&",
+      "gphttpserver": {
+        "route": true,
+        "handler": true,
+        "mailbox": true
+      },
+      "verdict": "VULNERABLE_STATIC",
+      "note": "Official firmware contains the unguarded SC -> system() path."
+    },
+    {
+      "model_id": 66,
+      "model": "HERO",
+      "version": "02.30.00",
+      "release_date": "20251029",
+      "url": "https://device-firmware.gp-static.com/66/1fecf89cb00e1ca50d268ea571be5bb71a0dd759/H24.03/camera_fw/02.30.00/UPDATE.zip",
+      "sha1": "1fecf89cb00e1ca50d268ea571be5bb71a0dd759",
+      "data_bin_sha256": "e10788a337e694d440a2432144f0e185f3b339e296984f049a475b868028d993",
+      "data_bin_size": 54487320,
+      "gpnet": null,
+      "command_table": null,
+      "handler_path": [],
+      "system_arg": null,
+      "gphttpserver": {
+        "route": null,
+        "handler": null,
+        "mailbox": null
+      },
+      "verdict": "GPNET_NOT_FOUND",
+      "note": "FW.bin is an Ambarella image; the readable squashfs contains Ambarella/AmbaRTSPServer userspace and no gpNet/gpCommand/scheduled_capture strings. Any encrypted GoPro app section was not unpacked, so this model is unverified, not proven safe."
+    },
+    {
+      "model_id": 69,
+      "model": "MISSION 1 PRO",
+      "version": "04.01.00",
+      "release_date": "20261013",
+      "url": "https://device-firmware.gp-static.com/69/c5963be90a8d69d0abaceb8e98e7b4549a682ef3/H26.01/camera_fw/04.01.00/UPDATE.zip",
+      "sha1": "c5963be90a8d69d0abaceb8e98e7b4549a682ef3",
+      "data_bin_sha256": "f8033ae95aa1885eece6e11dc3101aa1c0a4e077fdd18a0d992ef5f70731c388",
+      "data_bin_size": 257128000,
+      "gpnet": {
+        "arch": "aarch64",
+        "elf_type": "ET_EXEC",
+        "size": 449640,
+        "sha256": "ea8b3201322d4d88a789f9c6c852a799cbae5e14bb59c6f2165a065284341a74",
+        "build_id": "133a7d848a91b83409001c9ab52a2ab2afacdb69",
+        "elf_offset": null
+      },
+      "command_table": {
+        "s_cats_index": 2,
+        "entries": 65,
+        "sc_index": 62,
+        "handler": 146480,
+        "max_len": 1,
+        "min_len": 1
+      },
+      "handler_path": [
+        "0x23c30"
+      ],
+      "system_arg": null,
+      "gphttpserver": {
+        "route": true,
+        "handler": true,
+        "mailbox": true
+      },
+      "verdict": "SC_PRESENT_PRODUCTION_GATED",
+      "note": "gpNet has the SC entry in CAT_CGI_BP_CMD, but RTsetSC checks bit 19 of g_csi_status+8 (STS_CSI_PRODUCTION_BUILD) and logs 'RTsetSC - ignoring sched cap test on production build'; the system() call is only in the normal start_sched_cap path."
+    },
+    {
+      "model_id": 70,
+      "model": "LIT HERO",
+      "version": "02.10.00",
+      "release_date": "20260414",
+      "url": "https://device-firmware.gp-static.com/70/31e604ca4b0e202df64dbf03bd2e27e77fd0d3f1/H25.03/camera_fw/02.10.00/UPDATE.zip",
+      "sha1": "31e604ca4b0e202df64dbf03bd2e27e77fd0d3f1",
+      "data_bin_sha256": "b870fe329c81115ee9abed4602710ac215ea94cefad4286153007d3d3aad40f6",
+      "data_bin_size": 56011864,
+      "gpnet": null,
+      "command_table": null,
+      "handler_path": [],
+      "system_arg": null,
+      "gphttpserver": {
+        "route": null,
+        "handler": null,
+        "mailbox": null
+      },
+      "verdict": "GPNET_NOT_FOUND",
+      "note": "FW.bin is an Ambarella image; the readable squashfs contains Ambarella/AmbaRTSPServer userspace and no gpNet/gpCommand/scheduled_capture strings. Any encrypted GoPro app section was not unpacked, so this model is unverified, not proven safe."
+    },
+    {
+      "model_id": 71,
+      "model": "MISSION 1",
+      "version": "04.01.00",
+      "release_date": "20261013",
+      "url": "https://device-firmware.gp-static.com/71/a72181e941e15d5c55febc6b331f61804399b688/H26.02/camera_fw/04.01.00/UPDATE.zip",
+      "sha1": "a72181e941e15d5c55febc6b331f61804399b688",
+      "data_bin_sha256": "1f30e0641bd6771ca8273073ecfe9957440d7d30ef19943dfb496e19501c7765",
+      "data_bin_size": 257128000,
+      "gpnet": {
+        "arch": "aarch64",
+        "elf_type": "ET_EXEC",
+        "size": 449640,
+        "sha256": "ea8b3201322d4d88a789f9c6c852a799cbae5e14bb59c6f2165a065284341a74",
+        "build_id": "133a7d848a91b83409001c9ab52a2ab2afacdb69",
+        "elf_offset": null
+      },
+      "command_table": {
+        "s_cats_index": 2,
+        "entries": 65,
+        "sc_index": 62,
+        "handler": 146480,
+        "max_len": 1,
+        "min_len": 1
+      },
+      "handler_path": [
+        "0x23c30"
+      ],
+      "system_arg": null,
+      "gphttpserver": {
+        "route": true,
+        "handler": true,
+        "mailbox": true
+      },
+      "verdict": "SC_PRESENT_PRODUCTION_GATED",
+      "note": "gpNet has the SC entry in CAT_CGI_BP_CMD, but RTsetSC checks bit 19 of g_csi_status+8 (STS_CSI_PRODUCTION_BUILD) and logs 'RTsetSC - ignoring sched cap test on production build'; the system() call is only in the normal start_sched_cap path."
+    },
+    {
+      "model_id": 74,
+      "model": "MISSION 1 PRO ILS",
+      "version": "04.01.00",
+      "release_date": "20261013",
+      "url": "https://device-firmware.gp-static.com/74/8a9d1defcf0039b5009b644f83a915c492b36524/H26.03/camera_fw/04.01.00/UPDATE.zip",
+      "sha1": "8a9d1defcf0039b5009b644f83a915c492b36524",
+      "data_bin_sha256": "f43d8514a5e601d222f6c6626f5ed811d9726963cd5eebb7fe22f8e51cb515e0",
+      "data_bin_size": 255179840,
+      "gpnet": {
+        "arch": "aarch64",
+        "elf_type": "ET_EXEC",
+        "size": 449640,
+        "sha256": "ea8b3201322d4d88a789f9c6c852a799cbae5e14bb59c6f2165a065284341a74",
+        "build_id": "133a7d848a91b83409001c9ab52a2ab2afacdb69",
+        "elf_offset": null
+      },
+      "command_table": {
+        "s_cats_index": 2,
+        "entries": 65,
+        "sc_index": 62,
+        "handler": 146480,
+        "max_len": 1,
+        "min_len": 1
+      },
+      "handler_path": [
+        "0x23c30"
+      ],
+      "system_arg": null,
+      "gphttpserver": {
+        "route": true,
+        "handler": true,
+        "mailbox": true
+      },
+      "verdict": "SC_PRESENT_PRODUCTION_GATED",
+      "note": "gpNet has the SC entry in CAT_CGI_BP_CMD, but RTsetSC checks bit 19 of g_csi_status+8 (STS_CSI_PRODUCTION_BUILD) and logs 'RTsetSC - ignoring sched cap test on production build'; the system() call is only in the normal start_sched_cap path."
+    }
+  ]
+}
