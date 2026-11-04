@@ -1,8 +1,12 @@
-# GoPro HERO11 Black — `SC` root
+# GoPro `SC` root — HERO8 Black through MAX2
 
-Root code execution on a GoPro HERO11 Black running **H22.01.02.20.00**, using
-only the camera's own HTTP server. No firmware flashing, no memory corruption,
-no USB exploit.
+Root code execution through the camera's own HTTP server on the GoPro `gpNet`
+generation. No firmware flashing, no memory corruption, no USB exploit.
+
+Hardware-verified on a HERO11 Black running **H22.01.02.20.00**. The same
+`SC` → `RTsetSC` → `system("/tmp/fuse_d/scheduled_capture.sh&")` path is
+present in the official firmware of the other supported models; see
+[`docs/firmware-verification.md`](docs/firmware-verification.md).
 
 > **Use this only on a camera you own.** The trigger is only reachable on the
 > camera's own Wi-Fi AP or its USB network gadget, so it needs physical control
