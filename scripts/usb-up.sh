@@ -104,7 +104,7 @@ if [ "$code" = "200" ]; then
     fw=$(curl -s -m 6 "http://$CAM_IP/gp/gpControl/info" \
          | tr ',' '\n' | grep -o '"firmware_version":"[^"]*"' | cut -d'"' -f4)
     echo "OK: $CAM_IP:80 answered 200 (firmware ${fw:-unknown})"
-    echo "next: ./root-sc.sh http://$CAM_IP"
+    echo "next: ./scripts/arm.sh"
     exit 0
 fi
 
